@@ -1,8 +1,13 @@
 import fetch from "node-fetch";
 import cheerio from 'cheerio';
 
+let data={};
+let page=1;
+let times=1;
+//const delay=10*1000*1000;
+const delay=5*1000;
 
-async function getdata(page) {
+async function getdata() {
 	let url=`https://www.coupang.com/np/categories/393760?listSize=120&brand=&offerCondition=&filterType=&isPriceRange=false&minPrice=&maxPrice=&page=${page}&channel=user&fromComponent=N&selectedPlpKeepFilter=&sorter=salePriceAsc&filter=&rating=0`
 	let r=await fetch(url, {
 	  "headers": {
@@ -32,19 +37,48 @@ async function getdata(page) {
 		names.push($(tag).text().trim());
 	}
 	
-	let prices=[]
+	let prices=[];
 	for (let tag of $('.price-value'))
 	{
 		prices.push(Number($(tag).text().replaceAll(',','')));
 	}
 
-	let links=[]
+	let links=[];
 	for (let tag of $('.baby-product-link'))
 	{
 		links.push($(tag).attr('href'));
 	}
 
-	console.log(names,prices,links);
-}
+	//merge data
+	for(let i=0;i<names.length;i++)
+	{
+		data[names[i]]={'name':names[i],'price':prices[i],'link':links[i],'times':times};
+	}
 
-getdata(1)
+	//debug print
+	for (let name in data)
+	{
+		console.log(data[name]);
+	}
+	console.log(Object.keys(data).length);
+	
+	//reset page, remove old data
+	page+=1;
+	if (page==10)
+	{
+		page=1;
+		times+=1;
+		for (let name in data)
+		{
+			if (Math.abs(data[name]['times']-times)>2)
+			{
+				delete data[name];
+			}
+		}
+	}
+
+	setTimeout(getdata,delay);
+};getdata();
+
+
+
