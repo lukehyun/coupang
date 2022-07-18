@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import cheerio from 'cheerio';
+import express from 'express';
 
 let data={};
 let page=1;
@@ -54,13 +55,6 @@ async function getdata() {
 	{
 		data[names[i]]={'name':names[i],'price':prices[i],'link':links[i],'times':times};
 	}
-
-	//debug print
-	for (let name in data)
-	{
-		console.log(data[name]);
-	}
-	console.log(Object.keys(data).length);
 	
 	//reset page, remove old data
 	page+=1;
@@ -82,3 +76,13 @@ async function getdata() {
 
 
 
+let app = express();
+let server = app.listen(80,'0.0.0.0')
+app.get('/', function(req, res){
+	let text=''
+	for (let name in data)
+	{
+		text+=JSON.stringify(data[name])+'<br>';
+	}
+    res.send(text);
+});
