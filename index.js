@@ -47,7 +47,7 @@ async function getdata() {
 	let links=[];
 	for (let tag of $('.baby-product-link'))
 	{
-		links.push($(tag).attr('href'));
+		links.push('https://www.coupang.com'+$(tag).attr('href'));
 	}
 
 	//merge data
@@ -78,11 +78,17 @@ async function getdata() {
 
 let app = express();
 let server = app.listen(80,'0.0.0.0')
+app.use(express.static("public"));
+app.set('view engine', 'ejs');
+
 app.get('/', function(req, res){
 	let text=''
 	for (let name in data)
 	{
 		text+=JSON.stringify(data[name])+'<br>';
 	}
-    res.send(text);
+	//res.send(text);
+	res.render('index', {
+		data: data,
+	});
 });
