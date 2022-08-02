@@ -82,12 +82,6 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-	let text=''
-	for (let name in data)
-	{
-		text+=JSON.stringify(data[name])+'<br>';
-	}
-	//res.send(text);
 	res.render('index', {
 		data: data,
 	});
