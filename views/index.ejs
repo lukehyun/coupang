@@ -43,10 +43,10 @@
                 <!-- Page Features-->
                 <div class="row gx-lg-5">
 <% for(let name in data){  %>
-					
-					<div class="col-lg-6 col-xxl-4 mb-5" price='<%=data[name]['price']%>'>
+					<div class="col-lg-4 col-xxl-3 mb-5" price='<%=data[name]['price']%>'>
 					<a href=<%=data[name]['link']%> class="text-dark text-decoration-none">
                         <div class="card bg-light border-0 h-100">
+							<img class="card-img-top" src=<%=data[name]['img']%>>
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0 mt-5">
                                 <h2 class="fs-4 fw-bold"><%=data[name]['price']%>원</h2>
 								<p class="mb-0"><%=name%></p>

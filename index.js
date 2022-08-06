@@ -50,10 +50,16 @@ async function getdata() {
 		links.push('https://www.coupang.com'+$(tag).attr('href'));
 	}
 
+	let imgs=[];
+	for (let tag of $('.image > img'))
+	{
+		imgs.push($(tag).attr('src'));
+	}
+
 	//merge data
 	for(let i=0;i<names.length;i++)
 	{
-		data[names[i]]={'name':names[i],'price':prices[i],'link':links[i],'times':times};
+		data[names[i]]={'name':names[i],'price':prices[i],'link':links[i],'times':times,'img':imgs[i]};
 	}
 	
 	//reset page, remove old data
