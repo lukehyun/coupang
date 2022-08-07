@@ -83,7 +83,7 @@ async function getdata() {
 
 
 let app = express();
-let server = app.listen(80,'0.0.0.0')
+let server = app.listen(process.env.PORT,'0.0.0.0')
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
