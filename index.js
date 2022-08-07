@@ -5,8 +5,8 @@ import express from 'express';
 let data={};
 let page=1;
 let times=1;
-//const delay=10*1000*1000;
-const delay=5*1000;
+const delay=5*60*1000;
+//const delay=5*1000;
 
 async function getdata() {
 	let url=`https://www.coupang.com/np/categories/393760?listSize=120&brand=&offerCondition=&filterType=&isPriceRange=false&minPrice=&maxPrice=&page=${page}&channel=user&fromComponent=N&selectedPlpKeepFilter=&sorter=salePriceAsc&filter=&rating=0`
